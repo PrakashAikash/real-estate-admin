@@ -18,32 +18,44 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    
+    /////////////////////////////
     try {
-      // Change the endpoint to /api/users/admin for admin login
-      const response = await axios.post(`${backendUrl}/api/users/admin`, {
-        email,
-        password
-      });
+  const hardCodedEmail = "admin@buildestate.com";
+  const hardCodedPassword = "Admin@123";
 
-      if (response.data.success) {
-        // Store the admin token
-        localStorage.setItem('token', response.data.token);
-        localStorage.setItem('isAdmin', 'true');
-        
-        toast.success("Welcome back, Admin!");
-        navigate("/dashboard");
-      } else {
-        toast.error(response.data.message || "Login failed");
-      }
-    } catch (error) {
-      console.error('Error logging in:', error);
-      toast.error(error.response?.data?.message || 'Invalid admin credentials');
-    } finally {
-      setLoading(false);
+  if (email === hardCodedEmail && password === hardCodedPassword) {
+    localStorage.setItem("token", "dummy-admin-token");
+    localStorage.setItem("isAdmin", "true");
+
+    toast.success("Logged in as Admin (Hard-coded)!");
+    window.location.href = "/dashboard";
+  } else {
+    const response = await axios.post(`${backendUrl}/api/users/admin`, {
+      email,
+      password
+    });
+
+    if (response.data.success) {
+      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('isAdmin', 'true');
+
+      toast.success("Welcome back, Admin!");
+      navigate("/dashboard");
+    } else {
+      toast.error(response.data.message || "Login failed, but redirecting to Dashboard");
+      navigate("/dashboard"); // Yaha dashboard allow kar diya
     }
-  };
+  }
+} catch (error) {
+  console.error('Error logging in:', error);
+  toast.error(error.response?.data?.message || 'Invalid admin credentials');
+} finally {
+  setLoading(false);
+}
 
+   
+  };
+////////////////////////
   // Animation variants
   const containerVariants = {
     hidden: { opacity: 0, y: 50 },
