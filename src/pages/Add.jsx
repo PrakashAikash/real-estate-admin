@@ -93,9 +93,12 @@ const PropertyForm = () => {
       formdata.append('sqft', formData.sqft);
       formdata.append('phone', formData.phone);
       formdata.append('availability', formData.availability);
-      formData.amenities.forEach((amenity, index) => {
-        formdata.append(`amenities[${index}]`, amenity);
-      });
+      //formData.amenities.forEach((amenity, index) => {
+        //formdata.append(`amenities[${index}]`, amenity);
+      //});
+//
+      formdata.append('amenities', JSON.stringify(formData.amenities));
+//
       formData.images.forEach((image, index) => {
         formdata.append(`image${index + 1}`, image);
       });

@@ -136,7 +136,7 @@ const Login = () => {
               Admin Portal
             </h1>
             <p className="text-gray-600 text-sm">
-              Sign in to manage BuildEstate properties
+              Sign in to manage MyCityFlat properties
             </p>
           </motion.div>
 
